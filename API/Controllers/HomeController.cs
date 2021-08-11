@@ -75,12 +75,12 @@ namespace API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Nhanvien>> PostProducts(Nhanvien nhanvien)
+        public async Task<ActionResult<Nhanvien>> Creat(Nhanvien nhanvien)
         {
             _context.Nhanviens.Add(nhanvien);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProducts", new { id = nhanvien.ID }, nhanvien);
+            return CreatedAtAction(nameof(GetProducts), new { id = nhanvien.ID }, nhanvien);
         }
 
         // DELETE: api/Home/5

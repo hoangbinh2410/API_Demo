@@ -17,7 +17,7 @@ namespace API.EF
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Nhanvienconfig());
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
         }
         
     }
