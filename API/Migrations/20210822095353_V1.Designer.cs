@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(NVcontext))]
-    [Migration("20210803191853_V2")]
-    partial class V2
+    [Migration("20210822095353_V1")]
+    partial class V1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,13 +32,16 @@ namespace API.Migrations
                         .HasColumnType("char(30)");
 
                     b.Property<string>("Gioitinh")
-                        .HasColumnType("char(10)");
+                        .HasColumnType("char(4)");
 
                     b.Property<string>("Manv")
                         .HasColumnType("char(10)");
 
                     b.Property<DateTime>("Ngaysinh")
                         .HasColumnType("Date");
+
+                    b.Property<string>("Phong")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .HasColumnType("char(20)");
@@ -55,6 +58,7 @@ namespace API.Migrations
                             Gioitinh = "Nam",
                             Manv = "CT010304",
                             Ngaysinh = new DateTime(1998, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Phong = "PM",
                             Ten = "Hoang Tien Binh"
                         },
                         new
@@ -64,6 +68,7 @@ namespace API.Migrations
                             Gioitinh = "Nam",
                             Manv = "CT010305",
                             Ngaysinh = new DateTime(1998, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Phong = "PM",
                             Ten = "Hoang Thanh Binh"
                         },
                         new
@@ -73,6 +78,7 @@ namespace API.Migrations
                             Gioitinh = "Nu",
                             Manv = "CT010306",
                             Ngaysinh = new DateTime(1998, 11, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Phong = "App",
                             Ten = "Hoang Thi Binh"
                         },
                         new
@@ -82,7 +88,52 @@ namespace API.Migrations
                             Gioitinh = "Nu",
                             Manv = "CT010307",
                             Ngaysinh = new DateTime(1998, 10, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Phong = "Mobile",
                             Ten = "Nguyen Thi A"
+                        });
+                });
+
+            modelBuilder.Entity("API.EF.User1", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Manv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Passwords");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Manv = "CT010304",
+                            Name = "binhht2",
+                            Pass = "1234"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Manv = "CT010305",
+                            Name = "binhht1",
+                            Pass = "1234"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            Manv = "CT010306",
+                            Name = "admin",
+                            Pass = "admin"
                         });
                 });
 #pragma warning restore 612, 618

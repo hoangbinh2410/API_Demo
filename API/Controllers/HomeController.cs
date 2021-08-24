@@ -27,7 +27,7 @@ namespace API.Controllers
         }
         // GET: api/Home/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Nhanvien>> GetProducts(int id)
+        public async Task<ActionResult<Nhanvien>> GetUsers(int id)
         {
             var products = await _context.Nhanviens.FindAsync(id);
 
@@ -43,7 +43,7 @@ namespace API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Nhanvien nhanvien)
+        public async Task<IActionResult> PutUser(int id, Nhanvien nhanvien)
         {
             if (id != nhanvien.ID)
             {
@@ -58,7 +58,7 @@ namespace API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProductsExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -80,12 +80,12 @@ namespace API.Controllers
             _context.Nhanviens.Add(nhanvien);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProducts), new { id = nhanvien.ID }, nhanvien);
+            return CreatedAtAction(nameof(GetUsers), new { id = nhanvien.ID }, nhanvien);
         }
 
         // DELETE: api/Home/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Nhanvien>> DeleteProducts(int id)
+        public async Task<ActionResult<Nhanvien>> DeleteUser(int id)
         {
             var products = await _context.Nhanviens.FindAsync(id);
             if (products == null)
@@ -99,7 +99,7 @@ namespace API.Controllers
             return products;
         }
 
-        private bool ProductsExists(int id)
+        private bool UserExists(int id)
         {
             return _context.Nhanviens.Any(e => e.ID == id);
         }

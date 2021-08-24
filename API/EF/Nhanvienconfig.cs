@@ -18,6 +18,8 @@ namespace API.EF
             builder.Property(x => x.Gioitinh).HasColumnType("char(10)");
             builder.Property(x => x.Manv).HasColumnType("char(10)");
             builder.Property(x => x.Ngaysinh).HasColumnType("Date");
+            builder.Property(x => x.Diachi).HasColumnType("char(30)");
+            builder.Property(x => x.Gioitinh).HasColumnType("char(4)");
 
         }
     }

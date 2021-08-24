@@ -9,6 +9,7 @@ namespace API.EF
     public class NVcontext : DbContext
     {
         public DbSet<Nhanvien> Nhanviens { get; set; }
+        public DbSet<User1> Passwords { get; set; }
 
         public NVcontext(DbContextOptions options) : base(options)
         {
@@ -17,8 +18,8 @@ namespace API.EF
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new Nhanvienconfig());
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
         }
-        
+               
     }
 }
