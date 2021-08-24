@@ -75,6 +75,44 @@ namespace API.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Route("UpdateNv")]
+        public async Task<IActionResult> UPdatenv([FromBody] Nhanvien nhanvien)
+        {
+            RequetModel<Nhanvien> result = new RequetModel<Nhanvien>();
+            try
+            {
+                var nv = (from u in _context.Nhanviens
+                            where u.ID == nhanvien.ID
+                            select u).FirstOrDefault();
+
+                if (nv != null)
+                {
+                    nv.Ten = nhanvien.Ten;
+                    nv.Manv = nhanvien.Manv;
+                    nv.Phong = nhanvien.Phong;
+                    nv.Gioitinh = nhanvien.Gioitinh;
+                    nv.Diachi = nhanvien.Diachi;
+                    nv.Ngaysinh = nhanvien.Ngaysinh;
+                    _context.SaveChanges();
+                    //result.data = user.FirstOrDefault();
+                    result.success = true;
+                    result.Message = "Thành công";
+                    return Ok(result);
+                }
+                else
+                {
+                    result.data = null;
+                    result.success = false;
+                    result.Message = "Không có dữ liệu";
+                    return Ok(result);
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = 500, error = "Loi tu server" });
+            }
+        }
+        [HttpPost]
         public async Task<ActionResult<Nhanvien>> Creat(Nhanvien nhanvien)
         {
             _context.Nhanviens.Add(nhanvien);
@@ -83,22 +121,34 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetUsers), new { id = nhanvien.ID }, nhanvien);
         }
 
-        // DELETE: api/Home/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Nhanvien>> DeleteUser(int id)
+        // DELETE: Nhan vien
+        [HttpGet]
+        [Route("DeleteNv/{IDnv}")]
+        public async Task<IActionResult> DeleteUser(int IDnv)
         {
-            var products = await _context.Nhanviens.FindAsync(id);
-            if (products == null)
+            RequetModel<bool> result = new RequetModel<bool>();
+            try
             {
-                return NotFound();
+                var deletenv = (from u in _context.Nhanviens
+                                where u.ID == IDnv
+                                select u).FirstOrDefault();
+                if (deletenv == null)
+                {
+                    result.success = false;
+                    //return Json(new { status = 500, error = "Loi tu server" }
+                    return Ok(result);
+                }
+                _context.Nhanviens.Remove(deletenv);
+                await _context.SaveChangesAsync();
+                result.success = true;
+                return Ok(result);
+
             }
-
-            _context.Nhanviens.Remove(products);
-            await _context.SaveChangesAsync();
-
-            return products;
+            catch(Exception e)
+            {
+                return Json(new { status = 500, error = "Loi tu server" });
+            }
         }
-
         private bool UserExists(int id)
         {
             return _context.Nhanviens.Any(e => e.ID == id);
